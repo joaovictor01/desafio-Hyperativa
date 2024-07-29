@@ -40,11 +40,15 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-EXTERNAL_APPS = ["rest_framework", "rest_framework_simplejwt"]
+EXTERNAL_APPS = ["rest_framework", "rest_framework_simplejwt", "encrypted_fields"]
 
 LOCAL_APPS = ["cards", "users"]
 
 INSTALLED_APPS = DJANGO_APPS + EXTERNAL_APPS + LOCAL_APPS
+
+FIELD_ENCRYPTION_KEYS = [
+    "cc8e86eeadf45401460a655ac01ad5651960322e11d43ecf6229b8e2dbe69208"
+]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

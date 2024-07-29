@@ -1,11 +1,15 @@
+from django.conf import settings
 from django.db import models
-
-# from django_cryptography.fields import encrypt
+from encrypted_fields import fields
 
 
 class Card(models.Model):
     name = models.CharField(max_length=29)
-    card_number = models.CharField(max_length=255, blank=False, null=False)
+    _card_number_data = fields.EncryptedCharField(max_length=255, editable=False)
+    card_number = fields.SearchField(
+        hash_key=settings.FIELD_ENCRYPTION_KEYS[0],
+        encrypted_field_name="_card_number_data",
+    )
 
 
 class CardsBatch(models.Model):
