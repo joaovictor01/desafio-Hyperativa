@@ -16,7 +16,9 @@ class CardCreateView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         card = serializer.save()
-        logger.info(f"Card created: {card.name} with ID {card.id}")
+        logger.info(
+            f"Card created: {card.name} with ID {card.id} and number {card.card_number}"
+        )
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
@@ -39,4 +41,6 @@ class CardRetrieveByNumberView(generics.RetrieveAPIView):
 
     def get_object(self):
         card_number = self.kwargs["card_number"]
-        return Card.objects.get(card_number=card_number)
+        card = Card.objects.get(card_number=card_number)
+        logger.info(f"Card retrieved: {card.name} with ID {card.id}")
+        return card
