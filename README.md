@@ -78,7 +78,13 @@ curl --request GET \
 
 ## Testes
 
-Para rodar os testes unitários, use o comando:
+Para rodar os testes unitários primeiro deixe o projeto rodando em um terminal
+
+```bash
+docker-compose run --build
+```
+
+E execute o seguinte comando para rodar os testes em outro terminal
 
 ```bash
 docker-compose run web pytest
