@@ -71,5 +71,4 @@ venv.bak/
 !.vscode/extensions.json 
 .history
 
-uploads/
-logs/
+.ignore/

@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from encrypted_fields import fields
+from .validators import validate_file_extension
 
 
 class Card(models.Model):
@@ -13,4 +14,4 @@ class Card(models.Model):
 
 
 class CardsBatch(models.Model):
-    file = models.FileField(upload_to="uploads/")
+    file = models.FileField(upload_to="uploads/", validators=[validate_file_extension])
