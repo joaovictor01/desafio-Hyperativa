@@ -1,0 +1,12 @@
+Django>=3.2,<4.0
+djangorestframework
+djangorestframework-simplejwt
+psycopg2-binary
+cryptography
+pytest
+pytest-django
+django-cryptography
+celery
+redis
+pytest-black
+pytest-flake8
