@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
+
+load_dotenv()
+
+MODE = os.environ.get("MODE", "dev")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,9 +29,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-+xn&#!d*bl-#8ha_278+=ur)ry#0hu%wy%$l#xh(2z-4(5t!*6"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if not MODE.lower().strip() == "production" else False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -87,9 +92,9 @@ WSGI_APPLICATION = "desafio_hyperativa.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "mydatabase",
-        "USER": "myuser",
-        "PASSWORD": "mypassword",
+        "NAME": os.environ.get("POSTGRES_DB", "mydatabase"),
+        "USER": os.environ.get("POSTGRES_USER", "myuser"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "mypassword"),
         "HOST": "db",
         "PORT": 5432,
     }
@@ -146,6 +151,7 @@ CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "UTC"
 
 # Logging configuration
+LOG_LEVEL = "DEBUG" if not MODE.lower().strip() == "production" else "INFO"
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -161,7 +167,7 @@ LOGGING = {
     },
     "handlers": {
         "file": {
-            "level": "DEBUG",
+            "level": LOG_LEVEL,
             "class": "logging.FileHandler",
             "filename": os.path.join(BASE_DIR, "logs/debug.log"),
             "formatter": "verbose",
@@ -170,12 +176,12 @@ LOGGING = {
     "loggers": {
         "django": {
             "handlers": ["file"],
-            "level": "DEBUG",
+            "level": LOG_LEVEL,
             "propagate": True,
         },
-        "myproject": {
+        "desafio_hyperativa": {
             "handlers": ["file"],
-            "level": "DEBUG",
+            "level": LOG_LEVEL,
             "propagate": True,
         },
     },

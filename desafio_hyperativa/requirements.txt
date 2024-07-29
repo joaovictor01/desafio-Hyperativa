@@ -11,3 +11,4 @@ redis
 pytest-black
 pytest-flake8
 django-searchable-encrypted-fields
+python-dotenv
